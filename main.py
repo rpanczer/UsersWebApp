@@ -8,5 +8,15 @@ def main():
     return render_template("index.html")
 
 
+@app.route("/displayRegister")
+def displayRegister():
+    return render_template("register.html")
+
+
+@app.route("/displayHome")
+def displayHome():
+    return render_template("home.html")
+
+
 if __name__ == "__main__":
     app.run()
