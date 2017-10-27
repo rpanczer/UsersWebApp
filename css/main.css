@@ -3,7 +3,7 @@ h1 {
     color: orange;
 }
 
-h2 {
+h3 {
     text-align: center;
     color: orange;
 }
@@ -13,12 +13,26 @@ body {
     background: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url("../img/woods.jpg");    
 }
 
-.login {
-    padding-top: 100px;
+.Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+  
+.Aligner-item {
+    max-width: 30%;
+    flex:1;
+}
+
+.Aligner-item-style {
     background-color: black;
     opacity: 0.75;
+    padding: 10px;
+    align-self: center;
 }
 
 p {
     color: white;
 }
+
