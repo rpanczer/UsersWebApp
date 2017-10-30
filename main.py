@@ -1,5 +1,4 @@
 from flask import *
-
 app = Flask(__name__)
 
 
@@ -16,6 +15,11 @@ def displayRegister():
 @app.route("/displayHome")
 def displayHome():
     return render_template("home.html")
+
+
+@app.route("/insertRegister")
+def insertRegister():
+    return
 
 
 if __name__ == "__main__":
