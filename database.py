@@ -8,10 +8,16 @@ def closeDB:
     conn.commit()
     conn.close()
 
+connectDB()
+x = c.execute("SELECT firstname, lastname FROM users.app_users")
+print("getUsers")
+# userinfo = zip(x[firstname], x[lastname])
+closeDB()
+'''
 # Return all current usernames
 def getUsers:
     connectDB()
-    x = c.execute("SELECT DISTINCT firstname, lastname FROM users.app_users")
+    x = c.execute("SELECT firstname, lastname FROM users.app_users")
     print("getUsers")
     userinfo = zip(x[firstname], x[lastname])
     closeDB()
@@ -28,4 +34,4 @@ def deleteUser:
     c.execute("DELETE * FROM users.app_users WHERE user_id = (?)", currentuserid)
     c.execute("DELETE * FROM users.user_pw WHERE user_id = (?)", currentuserid)
     closeDB()
-
+'''

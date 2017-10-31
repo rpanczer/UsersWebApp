@@ -1,6 +1,20 @@
 from flask import *
-import database
+import sqlite3 as sql
 app = Flask(__name__)
+
+
+def connectdb():
+    conn = sql.connect('users.db')
+    c = conn.cursor()
+    qry = "SELECT firstname, lastname FROM app_users"
+    c.execute(qry)
+    userlist = c.fetchall()
+    return userlist
+
+
+def closedb(conn):
+    conn.commit()
+    conn.close()
 
 
 @app.route("/")
@@ -16,8 +30,9 @@ def displayRegister():
 
 @app.route("/displayHome")
 def displayHome():
-    getUsers()
-    return render_template("home.html")
+    userlist = connectdb()
+    return render_template("home.html", userlist=userlist)
+    closedb(conn)
     
 
 
