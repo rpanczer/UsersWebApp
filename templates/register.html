@@ -44,11 +44,10 @@
     var password = "";
     var repassword = "";
     function ComparePasswords(){
-        document.getElementById("password_form").innerHTML = password
-        document.getElementById("repassword_form").innerHTML = repassword
-        if (password !== repassword) || (password.length > 6) {
+        password = document.getElementById("password_form").value;
+        repassword = document.getElementById("repassword_form").value;
+        if ((password !== repassword) || (password.length < 7)) {
             document.getElementById("btnregister").disabled = true;
-        }
         } else {
             document.getElementById("btnregister").disabled = false;
         }
