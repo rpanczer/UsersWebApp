@@ -31,10 +31,38 @@ def inserttodb(username, firstname, lastname, password):
     conn.commit()
 
 
+def checkcreddb(username, password):
+    try:
+       conn = sql.connect('users.db')
+       c = conn.cursor()
+    except Error as e:
+        print(e)
+    c.execute("SELECT password FROM user_pws WHERE username = (?)", (username,))
+    passworddb = c.fetchone()
+    passworddb = passworddb[0]
+    print(passworddb)
+    print(password)
+    if password == passworddb:
+        return 1
+    else:
+        return 0
+
+
 @app.route("/")
 def main():
     return render_template("index.html")
 
+
+@app.route("/checkCred", methods=["POST"])
+def checkCred():
+    username = request.form['username_form']
+    password = request.form['password_form']
+    status = checkcreddb(username, password)
+    print(status)
+    if status == 1:
+        return redirect(url_for("displayHome"))
+    else:
+        return redirect(url_for("main"))
 
 @app.route("/displayRegister")
 def displayRegister():
