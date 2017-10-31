@@ -17,7 +17,7 @@ def closedb(conn):
     conn.close()
 
 
-def inserttodb(username, firstname, lastname):
+def inserttodb(username, firstname, lastname, password):
     try:
        conn = sql.connect('users.db')
        c = conn.cursor()
@@ -25,7 +25,9 @@ def inserttodb(username, firstname, lastname):
         print(e)
 
     userinfo = (username, firstname, lastname)
+    pwinfo = (username, password)
     c.execute("INSERT INTO app_users VALUES(?,?,?)", userinfo)
+    c.execute("INSERT INTO user_pws VALUES(?, ?)", pwinfo)
     conn.commit()
 
 
@@ -39,7 +41,6 @@ def displayRegister():
     return render_template("register.html")
 
 
-
 @app.route("/displayHome")
 def displayHome():
     userlist = connectdb()
@@ -51,8 +52,8 @@ def insertUser():
     username = request.form['username_form']
     firstname = request.form['firstname_form']
     lastname = request.form['lastname_form']
-    # password = request.form['password_form']
-    inserttodb(username, firstname, lastname)
+    password = request.form['password_form']
+    inserttodb(username, firstname, lastname, password)
     return redirect(url_for("displayHome"))
 
 
