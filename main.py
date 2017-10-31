@@ -17,6 +17,18 @@ def closedb(conn):
     conn.close()
 
 
+def inserttodb(username, firstname, lastname):
+    try:
+       conn = sql.connect('users.db')
+       c = conn.cursor()
+    except Error as e:
+        print(e)
+
+    userinfo = (username, firstname, lastname)
+    c.execute("INSERT INTO app_users VALUES(?,?,?)", userinfo)
+    conn.commit()
+
+
 @app.route("/")
 def main():
     return render_template("index.html")
@@ -32,13 +44,16 @@ def displayRegister():
 def displayHome():
     userlist = connectdb()
     return render_template("home.html", userlist=userlist)
-    closedb(conn)
-    
 
 
-@app.route("/insertRegister")
-def insertRegister():
-    return
+@app.route("/insertUser", methods=["POST"])
+def insertUser():
+    username = request.form['username_form']
+    firstname = request.form['firstname_form']
+    lastname = request.form['lastname_form']
+    # password = request.form['password_form']
+    inserttodb(username, firstname, lastname)
+    return redirect(url_for("displayHome"))
 
 
 if __name__ == "__main__":
