@@ -13,15 +13,15 @@
             <form action="{{ url_for('insertUser') }}" method="post">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" class="form-control" name="firstname_form" placeholder="First Name">
+                        <input type="text" class="form-control" name="firstname_form" id="firstname_form" placeholder="First Name">
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" name="lastname_form" placeholder="Last Name">
+                        <input type="text" class="form-control" name="lastname_form" id="lastname_form" placeholder="Last Name">
                     </div>
                     <div class="form-group">
-                      <label>Username</label>
-                      <input type="text" class="form-control" name="username_form" placeholder="Username">
+                      <label>Username (>5 characters)</label>
+                      <input type="text" class="form-control" name="username_form" id="username_form" placeholder="Username">
                     </div>
                     <div class="form-group">
                       <label>Password (>6 characters)</label>
@@ -43,15 +43,26 @@
     <script>
     var password = "";
     var repassword = "";
-    function ComparePasswords(){
+    var username = "";
+    var firstname = "";
+    var lastname = "";
+
+    function FieldsCheck(){
         password = document.getElementById("password_form").value;
         repassword = document.getElementById("repassword_form").value;
+        username = document.getElementById("username_form").value;
+        firstname = document.getElementById("firstname_form").value;
+        lastname = document.getElementById("lastname_form").value;
+
         if ((password !== repassword) || (password.length < 7)) {
+            document.getElementById("btnregister").disabled = true;
+        } else if ((username.length < 6) || (firstname.length < 3) || (lastname.length < 3)) {
             document.getElementById("btnregister").disabled = true;
         } else {
             document.getElementById("btnregister").disabled = false;
         }
     };
-    setInterval(ComparePasswords, 20);
+
+    setInterval(FieldsCheck, 20);
     </script>
 </html>
