@@ -14,18 +14,12 @@
                         <th>First Name</th>
                         <th>Last Name</th>        
                     </tr>
+                    {% for row in userinfo %}
                     <tr>
-                        <td>Bobby</td>
-                        <td>Panczer</td>
+                      <td>{{ row[0]|tojson|safe }}</td>
+                      <td>{{ row[1] }}</td>
                     </tr>
-                    <tr>
-                        <td>Andras</td>
-                        <td>Trautwein</td>
-                    </tr>
-                    <tr>
-                        <td>Haley</td>
-                        <td>Weatherbee</td>
-                    </tr>
+                    {% endfor %}
                 </table>
                 <a id="btn-signout" role="button" class="btn btn-default btn-left" href="/">Sign out</a>
                 <a id="btn-deleteuser" role="button" class="btn btn-danger pull-right btn-right" href="/">Delete my Account</a>

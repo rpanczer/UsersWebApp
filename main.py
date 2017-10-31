@@ -1,4 +1,5 @@
 from flask import *
+import database
 app = Flask(__name__)
 
 
@@ -12,9 +13,12 @@ def displayRegister():
     return render_template("register.html")
 
 
+
 @app.route("/displayHome")
 def displayHome():
+    getUsers()
     return render_template("home.html")
+    
 
 
 @app.route("/insertRegister")
