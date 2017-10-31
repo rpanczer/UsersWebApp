@@ -39,11 +39,10 @@ def checkcreddb(username, password):
         print(e)
     c.execute("SELECT password FROM user_pws WHERE username = (?)", (username,))
     passworddb = c.fetchone()
-    passworddb = passworddb[0]
-    print(passworddb)
-    print(password)
-    if password == passworddb:
-        return 1
+    if passworddb is not None:
+        passworddb = passworddb[0]
+        if password == passworddb:
+            return 1
     else:
         return 0
 
