@@ -1,37 +1,38 @@
 import sqlite3 as sql
 
-def connectDB:
+def connectdb():
     conn = sql.connect('users.db')
     c = conn.cursor()
+    qry = "SELECT firstname, lastname FROM app_users"
+    c.execute(qry)
+    userlist = c.fetchall()
+    return userlist
 
-def closeDB:
+
+def inserttodb(username, firstname, lastname, password):
+    try:
+       conn = sql.connect('users.db')
+       c = conn.cursor()
+    except Error as e:
+        print(e)
+    userinfo = (username, firstname, lastname)
+    pwinfo = (username, password)
+    c.execute("INSERT INTO app_users VALUES(?,?,?)", userinfo)
+    c.execute("INSERT INTO user_pws VALUES(?, ?)", pwinfo)
     conn.commit()
-    conn.close()
 
-connectDB()
-x = c.execute("SELECT firstname, lastname FROM users.app_users")
-print("getUsers")
-# userinfo = zip(x[firstname], x[lastname])
-closeDB()
-'''
-# Return all current usernames
-def getUsers:
-    connectDB()
-    x = c.execute("SELECT firstname, lastname FROM users.app_users")
-    print("getUsers")
-    userinfo = zip(x[firstname], x[lastname])
-    closeDB()
 
-# Insert new user information into a db
-def insertUser:
-    connectDB()
-    c.execute("INSERT INTO users.app_users VALUES (?,?,?)", registeruser)
-    closeDB()
-
-# Delete current user
-def deleteUser:
-    connectDB()
-    c.execute("DELETE * FROM users.app_users WHERE user_id = (?)", currentuserid)
-    c.execute("DELETE * FROM users.user_pw WHERE user_id = (?)", currentuserid)
-    closeDB()
-'''
+def checkcreddb(username, password):
+    try:
+       conn = sql.connect('users.db')
+       c = conn.cursor()
+    except Error as e:
+        print(e)
+    c.execute("SELECT password FROM user_pws WHERE username = (?)", (username,))
+    passworddb = c.fetchone()
+    if passworddb is not None:
+        passworddb = passworddb[0]
+        if password == passworddb:
+            return 1
+    else:
+        return 0
