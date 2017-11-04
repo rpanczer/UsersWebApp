@@ -9,7 +9,7 @@ def connectdb():
     return userlist
 
 
-def inserttodb(username, firstname, lastname, password):
+def pushtodb(username, firstname, lastname, password):
     try:
        conn = sql.connect('users.db')
        c = conn.cursor()
@@ -36,3 +36,15 @@ def checkcreddb(username, password):
             return 1
     else:
         return 0
+
+def deletefromdb(username):
+    try:
+       conn = sql.connect('users.db')
+       c = conn.cursor()
+    except Error as e:
+        print(e)
+    c.execute("DELETE * FROM app_users WHERE username = (?)", (username,))
+    c.execute("DELETE * FROM user_pws WHERE username = (?)", (username,))
+    conn.commit()
+
+def 

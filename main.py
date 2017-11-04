@@ -35,8 +35,16 @@ def insertUser():
     firstname = request.form['firstname_form']
     lastname = request.form['lastname_form']
     password = request.form['password_form']
-    db.inserttodb(username, firstname, lastname, password)
+    db.pushtodb(username, firstname, lastname, password)
     return redirect(url_for("displayHome"))
+
+
+@app.route("/users", methods=["DELETE"])
+def deleteUser():
+    username = request.form["username_form"]
+    db.deleteUser(username)
+    return redirect(url_for("index.html"))
+
 
 
 if __name__ == "__main__":
