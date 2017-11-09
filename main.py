@@ -46,6 +46,5 @@ def deleteUser():
     return redirect(url_for("index.html"))
 
 
-
 if __name__ == "__main__":
     app.run()
